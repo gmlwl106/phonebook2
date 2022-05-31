@@ -34,10 +34,7 @@
 			</tr>
 			<tr>
 				<td>
-					<a href="./updateForm.jsp?id=<%=personList.get(i).getPersonId() %>
-					&name=<%=personList.get(i).getName() %>
-					&hp=<%=personList.get(i).getHp() %>
-					&company=<%=personList.get(i).getCompany() %>" >수정</a>
+					<a href="./pbc?action=updateForm&id=<%=personList.get(i).getPersonId() %>" >수정</a>
 				</td>
 				<td>
 					<a href="./pbc?action=delete&id=<%=personList.get(i).getPersonId() %>">삭제</a>

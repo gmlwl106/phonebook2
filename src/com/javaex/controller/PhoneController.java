@@ -3,7 +3,6 @@ package com.javaex.controller;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.javaex.dao.PhoneDao;
+import com.javaex.util.WebUtil;
 import com.javaex.vo.PersonVo;
 
 
@@ -48,16 +48,14 @@ public class PhoneController extends HttpServlet {
 			request.setAttribute("pList", phoneList);
 			
 			//데이터 + html -> jsp 시킨다
-			RequestDispatcher rd = request.getRequestDispatcher("/list.jsp");
-			rd.forward(request,  response);
+			WebUtil.forward(request, response, "/WEB-INF/list.jsp");
 		}
 		
 		
 		//사용자의 요청->writeForm 일때 (등록폼)
 		else if("writeForm".equals(action)) {
 			//포워드
-			RequestDispatcher rd = request.getRequestDispatcher("/writeForm.jsp");
-			rd.forward(request, response);
+			WebUtil.forward(request, response, "/WEB-INF/writeForm.jsp");
 		}
 		
 		
@@ -77,7 +75,20 @@ public class PhoneController extends HttpServlet {
 			System.out.println(count);
 			
 			//리다이렉트 list
-			response.sendRedirect("./pbc?action=list");
+			WebUtil.redirect(request, response, "./pbc?action=list");
+		}
+		
+		else if("updateForm".equals(action)) {
+			//파라미터에서 값 꺼내기
+			int id = Integer.parseInt(request.getParameter("id"));
+			
+			PhoneDao phoneDao = new PhoneDao();
+			PersonVo person = phoneDao.getPerson(id);
+			
+			request.setAttribute("person", person);
+			
+			//포워드
+			WebUtil.forward(request, response, "/WEB-INF/updateForm.jsp");
 		}
 		
 		
@@ -97,7 +108,7 @@ public class PhoneController extends HttpServlet {
 			System.out.println(count);
 			
 			//리다이렉트 list
-			response.sendRedirect("./pbc?action=list");
+			WebUtil.redirect(request, response, "./pbc?action=list");
 			
 		}
 		
@@ -110,8 +121,7 @@ public class PhoneController extends HttpServlet {
 			int count = phoneDao.personDelete(id);
 			System.out.println(count);
 			
-			response.sendRedirect("./pbc?action=list");
-			
+			WebUtil.redirect(request, response, "./pbc?action=list");
 			
 		}
 		
