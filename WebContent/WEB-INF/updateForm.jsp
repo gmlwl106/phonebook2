@@ -1,12 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
-<%@ page import="com.javaex.dao.PhoneDao" %>
-<%@ page import="com.javaex.vo.PersonVo"  %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<%
-	PersonVo person = (PersonVo) request.getAttribute("person");
 
-	
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,10 +15,10 @@
 		아래 항목을 기입하고 "수정" 버튼을 클릭하세요
 	</p>
 	<form action="./pbc" method="get">
-		이름(name)      <input type="text" name="name" value="<%=person.getName() %>"> <br>
-		핸드폰(hp)        <input type="text" name="hp" value="<%=person.getHp() %>"> <br>
-		회사(company)     <input type="text" name="company" value="<%=person.getCompany() %>"> <br>
-		<!-- 코드(id)  -->     <input type="hidden" name="id" value="<%=person.getPersonId() %>">
+		이름(name)      <input type="text" name="name" value="${person.name }"> <br>
+		핸드폰(hp)        <input type="text" name="hp" value="${person.hp }"> <br>
+		회사(company)     <input type="text" name="company" value="${person.company }"> <br>
+		<!-- 코드(id)  -->     <input type="text" name="id" value="${person.personId }">
 		<input type="hidden" name="action" value="update">
 		<br>
 		<button type="submit">수정</button>
